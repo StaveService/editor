@@ -275,6 +275,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "regenerator-runtime": "^0.13.5",
+    "simple-git": "^2.41.1",
     "source-map-support": "^0.5.19"
   },
   "devEngines": {
