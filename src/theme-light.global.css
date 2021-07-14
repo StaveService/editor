@@ -1,0 +1,21 @@
+:root {
+  --white: white;
+  --darker-white: #d6d6d6;
+  --lighter-white: lightgray;
+
+  --main-bg-light: var(--white);
+  --sub-bg-light: var(--lighter-white);
+  --hover-bg-light: var(--darker-white);
+
+  --main-border-light: var(--lighter-white);
+  --main-text-light: black;
+}
+.theme.light {
+  --main-bg-color: var(--main-bg-light);
+  --sub-bg-color: var(--sub-bg-light);
+  --hover-bg-color: var(--hover-bg-light);
+
+  --main-text-color: var(--main-text-light);
+
+  --main-border-color: var(--main-border-light);
+}

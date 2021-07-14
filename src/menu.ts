@@ -5,6 +5,10 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from 'electron';
+import path from 'path';
+import { getFile } from './common/fs';
+import { openFolder, openFile, saveTexFile } from './common/dialog';
+import ipc from './constants/ipc.json';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -182,6 +186,49 @@ export default class MenuBuilder {
         },
       ],
     };
+    const subMenuFile = {
+      label: 'File',
+      submenu: [
+        {
+          label: 'New Project',
+          accelerator: '',
+          click: () =>
+            this.mainWindow.webContents.send(ipc.openNewProjectModal),
+        },
+        {
+          label: 'Open File',
+          accelerator: 'Ctrl+O',
+          click: async () => {
+            const filePath = await openFile();
+            if (!filePath) return;
+            this.mainWindow.webContents.send(ipc.openFile, getFile(filePath));
+          },
+        },
+        {
+          label: 'Open Folder',
+          accelerator: 'Ctrl+K',
+          click: async () => {
+            const filePath = await openFolder();
+            if (!filePath) return;
+            this.mainWindow.webContents.send(ipc.openFolder, {
+              filePath,
+              fileType: 'folder',
+              fileName: path.basename(filePath),
+            });
+          },
+        },
+        {
+          label: 'Export Tex File',
+          accelerator: '',
+          click: () => saveTexFile(),
+        },
+        {
+          label: 'Preference',
+          accelerator: '',
+          click: () => this.mainWindow.webContents.send(ipc.openSettingModal),
+        },
+      ],
+    };
 
     const subMenuView =
       process.env.NODE_ENV === 'development' ||
@@ -189,24 +236,64 @@ export default class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuFile,
+      subMenuAbout,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      subMenuHelp,
+    ];
   }
 
   buildDefaultTemplate() {
     const templateDefault = [
       {
-        label: '&File',
+        label: 'File',
         submenu: [
           {
-            label: '&Open',
-            accelerator: 'Ctrl+O',
+            label: 'New Project',
+            accelerator: '',
+            click: () => {
+              this.mainWindow.webContents.send(
+                ipc.openNewProjectModal,
+                app.getPath('documents')
+              );
+            },
           },
           {
-            label: '&Close',
-            accelerator: 'Ctrl+W',
-            click: () => {
-              this.mainWindow.close();
+            label: 'Open File',
+            accelerator: 'Ctrl+O',
+            click: async () => {
+              const filePath = await openFile();
+              if (!filePath) return;
+              this.mainWindow.webContents.send(ipc.openFile, getFile(filePath));
             },
+          },
+          {
+            label: 'Open Folder',
+            accelerator: 'Ctrl+K',
+            click: async () => {
+              const filePath = await openFolder();
+              if (!filePath) return;
+              this.mainWindow.webContents.send(ipc.openFolder, {
+                filePath,
+                fileType: 'folder',
+                fileName: path.basename(filePath),
+              });
+            },
+          },
+          {
+            label: 'Export Tex File',
+            accelerator: '',
+            click: () => {
+              saveTexFile();
+            },
+          },
+          {
+            label: 'Preference',
+            accelerator: '',
+            click: () => this.mainWindow.webContents.send(ipc.openSettingModal),
           },
         ],
       },

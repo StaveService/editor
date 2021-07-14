@@ -1,0 +1,3 @@
+[submodule "ui"]
+	path = src/ui
+	url = git@github.com:StaveService/ui.git

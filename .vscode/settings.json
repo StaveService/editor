@@ -1,4 +1,7 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "files.associations": {
     ".babelrc": "jsonc",
     ".eslintrc": "jsonc",
