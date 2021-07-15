@@ -1,6 +1,6 @@
-import React, { ReactChild } from 'react';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
+import React, { ReactChild } from "react";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
 
 interface IIcon {
   children: ReactChild;

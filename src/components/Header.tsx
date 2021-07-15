@@ -1,27 +1,27 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import { useToggle } from 'react-use';
-import SongInfo from '../ui/SongInfo';
-import Stop from '../ui/Stop';
-import Pause from '../ui/Pause';
-import Volume from '../ui/Volume';
-import CountIn from '../ui/CountIn';
-import Loop from '../ui/Loop';
-import Metronome from '../ui/Metronome';
-import Layout from '../ui/Layout';
-import Zoom from '../ui/Zoom';
-import { AlphaTabApi } from '../alphatab-1.1.0/package/dist/alphaTab';
+import React, { ChangeEvent, useEffect, useState } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import { useToggle } from "react-use";
+import SongInfo from "../ui/SongInfo";
+import Stop from "../ui/Stop";
+import Pause from "../ui/Pause";
+import Volume from "../ui/Volume";
+import CountIn from "../ui/CountIn";
+import Loop from "../ui/Loop";
+import Metronome from "../ui/Metronome";
+import Layout from "../ui/Layout";
+import Zoom from "../ui/Zoom";
+import { AlphaTabApi } from "../alphatab-1.1.0/package/dist/alphaTab";
 
 interface HeaderProps {
   alphaTabApi?: AlphaTabApi;
 }
 const Header = ({ alphaTabApi }: HeaderProps) => {
-  const [title, setTitle] = useState('');
-  const [artist, setArtist] = useState('');
+  const [title, setTitle] = useState("");
+  const [artist, setArtist] = useState("");
   const [masterVolume, setMasterVolume] = useState(100);
   const [paused, setPaused] = useState(true);
   const [playerReady, setPlayerReady] = useState(true);

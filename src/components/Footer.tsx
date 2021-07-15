@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import { Console, Hook, Decode } from 'console-feed';
-import { usePaperStyles } from '../common/materialStyles';
+import React, { useEffect, useState, useRef } from "react";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import { Console, Hook, Decode } from "console-feed";
+import { usePaperStyles } from "../common/materialStyles";
 
 const FooterLog = () => {
   const [logs, setLogs] = useState([]);
@@ -12,7 +12,7 @@ const FooterLog = () => {
   const classes = usePaperStyles();
   const handleClick = () => setLogs([]);
   useEffect(() => {
-    logRef.current?.scrollIntoView({ behavior: 'smooth' });
+    logRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [logs]);
   useEffect(() => {
     Hook(window.console, (log) => {
@@ -45,7 +45,7 @@ const FooterLog = () => {
         height="100%"
         pt="51px"
         style={{
-          background: '#242424',
+          background: "#242424",
         }}
       >
         <Console logs={logs} variant="dark" />

@@ -3,18 +3,18 @@ import React, {
   MutableRefObject,
   useState,
   useCallback,
-} from 'react';
-import { useSelector } from 'react-redux';
-import Box from '@material-ui/core/Box';
-import useComponentSize from '@rehooks/component-size';
-import { selectTabs, selectActiveTabIndex } from '../../slices/tab';
-import styles from './index.sass';
+} from "react";
+import { useSelector } from "react-redux";
+import Box from "@material-ui/core/Box";
+import useComponentSize from "@rehooks/component-size";
+import { selectTabs, selectActiveTabIndex } from "../../slices/tab";
+import styles from "./index.sass";
 // import Tracks from './Tracks/Tracks';
-import Tracks, { ITrack } from '../../ui/Tracks';
-import { getFile } from '../../common/fs';
-import { compileJS } from '../../common/vm';
-import { usePaperStyles } from '../../common/materialStyles';
-import { AlphaTabApi } from '../../alphatab-1.1.0/package/dist/alphaTab';
+import Tracks, { ITrack } from "../../ui/Tracks";
+import { getFile } from "../../common/fs";
+import { compileJS } from "../../common/vm";
+import { usePaperStyles } from "../../common/materialStyles";
+import { AlphaTabApi } from "../../alphatab-1.1.0/package/dist/alphaTab";
 
 interface ScoreProps {
   mainRef: MutableRefObject<HTMLDivElement | null>;
@@ -50,23 +50,23 @@ const Score = ({ mainRef, scrollRef, alphaTabApi }: ScoreProps) => {
   }, [alphaTabApi, renderStarted]);
   // alphaTab change tex
   useEffect(() => {
-    alphaTabApi?.tex('');
+    alphaTabApi?.tex("");
     if (!tabs[activeTabIndex]) return;
     const { filePath, fileExt } = tabs[activeTabIndex];
     switch (fileExt) {
-      case '.js':
+      case ".js":
         (async () => {
           const data = await compileJS(filePath);
           alphaTabApi?.tex(data);
         })();
         break;
-      case '.tex': {
+      case ".tex": {
         const { fileText } = getFile(filePath);
         alphaTabApi?.tex(fileText);
         break;
       }
       default:
-        alphaTabApi?.tex('');
+        alphaTabApi?.tex("");
         break;
     }
   }, [tabs, activeTabIndex, alphaTabApi]);
@@ -84,7 +84,7 @@ const Score = ({ mainRef, scrollRef, alphaTabApi }: ScoreProps) => {
       className="Score"
       height="100%"
       width="100%"
-      style={{ background: 'white' }}
+      style={{ background: "white" }}
     >
       <Box
         className="at-wrap"

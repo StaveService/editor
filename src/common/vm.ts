@@ -1,14 +1,14 @@
-import vm from 'vm';
-import path from 'path';
-import fs from 'fs';
+import vm from "vm";
+import path from "path";
+import fs from "fs";
 
 export const compileJS = (filePath: string) => {
-  const fileText = fs.readFileSync(filePath, 'utf-8');
+  const fileText = fs.readFileSync(filePath, "utf-8");
   const jsFileDir = path.dirname(filePath);
   const dirname =
-    process.env.NODE_ENV === 'development'
+    process.env.NODE_ENV === "development"
       ? __dirname
-      : path.join(__dirname, 'common');
+      : path.join(__dirname, "common");
   const staveRequire = (relativePath: string) =>
     compileJS(path.join(jsFileDir, relativePath));
   const contextObj = {

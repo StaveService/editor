@@ -1,11 +1,11 @@
-import path from 'path';
-import { addFile, addFolder } from './fs';
-import { INewProjectFormValues } from './interface';
+import path from "path";
+import { addFile, addFolder } from "./fs";
+import { INewProjectFormValues } from "./interface";
 
 const createIndex = (
   { title, subtitle, artist, album, words, music, bpm }: INewProjectFormValues,
-  define = '',
-  content = ''
+  define = "",
+  content = ""
 ) =>
   `${define}
 
@@ -23,24 +23,24 @@ ${content}
 \``;
 export const addEmpty = (data: INewProjectFormValues) => {
   addFolder(data.projectPath);
-  addFile(path.join(data.projectPath, 'index.js'), createIndex(data));
+  addFile(path.join(data.projectPath, "index.js"), createIndex(data));
 };
 
 export const addBand = (data: INewProjectFormValues) => {
-  const instruments = ['guitar', 'bass', 'drum', 'vocal'];
+  const instruments = ["guitar", "bass", "drum", "vocal"];
   const defines = instruments
     .map(
       (instrument) =>
         `const ${instrument} = staveRequire("${instrument}/${instrument}.js")`
     )
-    .join('\n');
+    .join("\n");
   const content = instruments
     .map((instrument) => `\${${instrument}}`)
-    .join('\n');
+    .join("\n");
 
   addFolder(data.projectPath);
   addFile(
-    path.join(data.projectPath, 'index.js'),
+    path.join(data.projectPath, "index.js"),
     createIndex(data, defines, content)
   );
 
@@ -49,18 +49,18 @@ export const addBand = (data: INewProjectFormValues) => {
     addFolder(instrumentFolder);
     addFile(
       path.join(instrumentFolder, `${instrument}.js`),
-      'module.export = ``'
+      "module.export = ``"
     );
   });
 };
 
 export const addTemplate = (data: INewProjectFormValues) => {
   switch (data.template) {
-    case 'empty':
+    case "empty":
       addEmpty(data);
       break;
 
-    case 'band':
+    case "band":
       addBand(data);
       break;
 

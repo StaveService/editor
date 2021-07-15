@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 // eslint-disable-next-line import/no-cycle
-import { RootState } from '../store';
-import { IFile } from '../common/interface';
+import { RootState } from "../store";
+import { IFile } from "../common/interface";
 
 export interface ITab {
   tabs: IFile[];
@@ -14,7 +14,7 @@ const initialState: ITab = {
 };
 
 const tabSlice = createSlice({
-  name: 'tab',
+  name: "tab",
   initialState,
   reducers: {
     add: (state, action) => {
@@ -56,12 +56,6 @@ const tabSlice = createSlice({
 export const selectTabs = (state: RootState) => state.tab.tabs;
 export const selectActiveTabIndex = (state: RootState) =>
   state.tab.activeTabIndex;
-export const {
-  add,
-  remove,
-  select,
-  changed,
-  change,
-  refresh,
-} = tabSlice.actions;
+export const { add, remove, select, changed, change, refresh } =
+  tabSlice.actions;
 export default tabSlice.reducer;

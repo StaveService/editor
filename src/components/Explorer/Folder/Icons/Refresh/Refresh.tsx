@@ -1,5 +1,5 @@
-import React from 'react';
-import { IoMdRefresh } from 'react-icons/io';
+import React from "react";
+import { IoMdRefresh } from "react-icons/io";
 
 const Refresh = () => {
   return (

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 // eslint-disable-next-line import/no-cycle
-import Folder from '../Folder/Folder';
-import File from '../File/File';
-import { IFiles } from '../../../common/interface';
+import Folder from "../Folder/Folder";
+import File from "../File/File";
+import { IFiles } from "../../../common/interface";
 
 interface IFilesProps {
   files: IFiles[];
@@ -11,7 +11,7 @@ interface IFilesProps {
 const Files = ({ files, nestCount }: IFilesProps) => {
   const listItems = files.map(
     ({ fileType, fileName, filePath, fileExt, isChanged }) => {
-      if (fileType === 'file')
+      if (fileType === "file")
         return (
           <File
             key={filePath}
@@ -22,7 +22,7 @@ const Files = ({ files, nestCount }: IFilesProps) => {
             nestCount={nestCount}
           />
         );
-      if (fileType === 'folder')
+      if (fileType === "folder")
         return (
           <Folder
             key={filePath}

@@ -1,42 +1,42 @@
-import { remote, ipcRenderer } from 'electron';
-import path from 'path';
-import fs from 'fs';
+import { remote, ipcRenderer } from "electron";
+import path from "path";
+import fs from "fs";
 import React, {
   Dispatch,
   SetStateAction,
   useContext,
   useEffect,
   useState,
-} from 'react';
-import { useDispatch } from 'react-redux';
-import { Controller, useForm, SubmitHandler } from 'react-hook-form';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import InputBase from '@material-ui/core/InputBase';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Alert from '@material-ui/lab/Alert';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import MonacoModelsContext from '../../../contexts/MonacoModels';
-import { refresh } from '../../../slices/tab';
-import ipc from '../../../constants/ipc.json';
-import { openFolderRemote } from '../../../common/dialog';
-import { addTemplate } from '../../../common/templates';
-import { IFolder, INewProjectFormValues } from '../../../common/interface';
-import { useModalStyle } from '../../../common/materialStyles';
+} from "react";
+import { useDispatch } from "react-redux";
+import { Controller, useForm, SubmitHandler } from "react-hook-form";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import InputBase from "@material-ui/core/InputBase";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Alert from "@material-ui/lab/Alert";
+import IconButton from "@material-ui/core/IconButton";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import MonacoModelsContext from "../../../contexts/MonacoModels";
+import { refresh } from "../../../slices/tab";
+import ipc from "../../../constants/ipc.json";
+import { openFolderRemote } from "../../../common/dialog";
+import { addTemplate } from "../../../common/templates";
+import { IFolder, INewProjectFormValues } from "../../../common/interface";
+import { useModalStyle } from "../../../common/materialStyles";
 
 interface INewProjectModal {
   setRootFolder: Dispatch<SetStateAction<IFolder | undefined>>;
@@ -44,7 +44,7 @@ interface INewProjectModal {
 const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { setMonacoModels } = useContext(MonacoModelsContext);
   const dispatch = useDispatch();
   const classes = useModalStyle();
@@ -52,11 +52,11 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClick = async () =>
-    setValue('projectPath', await openFolderRemote());
-  const handleChange = (panel: string) => (
-    _e: React.ChangeEvent<Record<string, unknown>>,
-    isExpanded: boolean
-  ) => setExpanded(isExpanded ? panel : false);
+    setValue("projectPath", await openFolderRemote());
+  const handleChange =
+    (panel: string) =>
+    (_e: React.ChangeEvent<Record<string, unknown>>, isExpanded: boolean) =>
+      setExpanded(isExpanded ? panel : false);
 
   const onSubmit: SubmitHandler<INewProjectFormValues> = (data) => {
     addTemplate(data);
@@ -68,7 +68,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
     });
     setRootFolder({
       filePath: data.projectPath,
-      fileType: 'folder',
+      fileType: "folder",
       fileName: data.title,
     });
   };
@@ -111,10 +111,10 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                   inputRef={ref}
                   onChange={(e) => {
                     setValue(
-                      'projectPath',
+                      "projectPath",
                       path.join(
-                        remote.app.getPath('documents'),
-                        'stave',
+                        remote.app.getPath("documents"),
+                        "stave",
                         e.target.value
                       )
                     );
@@ -142,8 +142,8 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
             />
 
             <Accordion
-              expanded={expanded === 'template'}
-              onChange={handleChange('template')}
+              expanded={expanded === "template"}
+              onChange={handleChange("template")}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>Template</Typography>
@@ -178,8 +178,8 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              expanded={expanded === 'details'}
-              onChange={handleChange('details')}
+              expanded={expanded === "details"}
+              onChange={handleChange("details")}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>Details</Typography>
@@ -278,11 +278,11 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
             <Controller
               name="projectPath"
               control={control}
-              defaultValue={path.join(remote.app.getPath('documents'), 'stave')}
+              defaultValue={path.join(remote.app.getPath("documents"), "stave")}
               rules={{
                 required: true,
                 maxLength: 100,
-                validate: (value) => !fs.existsSync(value) || 'File is exist',
+                validate: (value) => !fs.existsSync(value) || "File is exist",
               }}
               render={({ ref, value, onChange }, { invalid }) => (
                 <Paper>

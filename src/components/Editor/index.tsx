@@ -1,21 +1,21 @@
-import React, { useRef, useEffect, useContext, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import fs from 'fs';
-import { ipcRenderer } from 'electron';
-import MonacoEditor, { monaco } from 'react-monaco-editor';
-import Box from '@material-ui/core/Box';
-import { createMonacoModel } from '../../common/functions';
+import React, { useRef, useEffect, useContext, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import fs from "fs";
+import { ipcRenderer } from "electron";
+import MonacoEditor, { monaco } from "react-monaco-editor";
+import Box from "@material-ui/core/Box";
+import { createMonacoModel } from "../../common/functions";
 import {
   changed,
   change,
   add,
   selectTabs,
   selectActiveTabIndex,
-} from '../../slices/tab';
-import { selectTheme } from '../../slices/theme';
-import MonacoModelsContext from '../../contexts/MonacoModels';
-import Tabs from './EditorTab/EditorTab';
-import ipc from '../../constants/ipc.json';
+} from "../../slices/tab";
+import { selectTheme } from "../../slices/theme";
+import MonacoModelsContext from "../../contexts/MonacoModels";
+import Tabs from "./EditorTab/EditorTab";
+import ipc from "../../constants/ipc.json";
 
 const Editor = () => {
   const editorRef = useRef<MonacoEditor>(null);

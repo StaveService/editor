@@ -1,21 +1,21 @@
-import React, { useContext, ChangeEvent, MouseEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import { Typography } from '@material-ui/core';
-import { IFile } from '../../../common/interface';
-import CloseBtn from './CloseBtn/CloseBtn';
-import MonacoModelsContext from '../../../contexts/MonacoModels';
+import React, { useContext, ChangeEvent, MouseEvent } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
+import { Typography } from "@material-ui/core";
+import { IFile } from "../../../common/interface";
+import CloseBtn from "./CloseBtn/CloseBtn";
+import MonacoModelsContext from "../../../contexts/MonacoModels";
 import {
   select,
   remove,
   selectTabs,
   selectActiveTabIndex,
-} from '../../../slices/tab';
+} from "../../../slices/tab";
 
-const EditorTabs = () => {
+const EditorTabs: React.FC = () => {
   const tabs = useSelector(selectTabs);
   const dispatch = useDispatch();
   const activeTabIndex = useSelector(selectActiveTabIndex);
@@ -42,7 +42,7 @@ const EditorTabs = () => {
       return (
         <Tab
           key={filePath}
-          style={{ textTransform: 'none' }}
+          style={{ textTransform: "none" }}
           label={
             <Box display="flex" justifyContent="space-between" width="100%">
               <Typography variant="body2">{fileName}</Typography>

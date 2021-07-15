@@ -1,20 +1,20 @@
-import fs from 'fs';
-import path from 'path';
-import { IFolder } from './interface';
+import fs from "fs";
+import path from "path";
+import { IFolder } from "./interface";
 
 export const getFolder = (folderPath: string) => {
   const folder = fs.readdirSync(folderPath);
   const folders: IFolder[] = folder.map((file) => {
     const filePath = path.join(folderPath, file);
     const fileName = file;
-    const fileType = fs.statSync(filePath).isDirectory() ? 'folder' : 'file';
+    const fileType = fs.statSync(filePath).isDirectory() ? "folder" : "file";
     return { filePath, fileName, fileType };
   });
   return folders;
 };
 
 export const getFile = (filePath: string) => {
-  const fileText = fs.readFileSync(filePath, 'utf-8');
+  const fileText = fs.readFileSync(filePath, "utf-8");
   const file = {
     filePath,
     fileText,
@@ -27,5 +27,5 @@ export const getFile = (filePath: string) => {
 export const addFolder = (folderPath: string) =>
   fs.mkdirSync(folderPath, { recursive: true });
 
-export const addFile = (folderPath: string, data = '') =>
+export const addFile = (folderPath: string, data = "") =>
   fs.writeFileSync(folderPath, data);

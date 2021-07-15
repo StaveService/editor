@@ -1,17 +1,17 @@
-import { ipcRenderer } from 'electron';
-import path from 'path';
-import React, { useEffect, useState } from 'react';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import NewProjectModal from '../Modal/NewProject/NewProject';
-import { IFolder } from '../../common/interface';
-import { openFolderRemote } from '../../common/dialog';
-import { getFolder } from '../../common/fs';
-import Folder from './Folder/Folder';
-import ipc from '../../constants/ipc.json';
+import { ipcRenderer } from "electron";
+import path from "path";
+import React, { useEffect, useState } from "react";
+import List from "@material-ui/core/List";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
+import NewProjectModal from "../Modal/NewProject/NewProject";
+import { IFolder } from "../../common/interface";
+import { openFolderRemote } from "../../common/dialog";
+import { getFolder } from "../../common/fs";
+import Folder from "./Folder/Folder";
+import ipc from "../../constants/ipc.json";
 
 const Explorer = () => {
   const [rootFolder, setRootFolder] = useState<IFolder>();
@@ -20,7 +20,7 @@ const Explorer = () => {
     getFolder(filePath);
     setRootFolder({
       filePath,
-      fileType: 'folder',
+      fileType: "folder",
       fileName: path.basename(filePath),
     });
   };
@@ -33,7 +33,7 @@ const Explorer = () => {
   }, []);
 
   return (
-    <Paper style={{ height: '100%', overflow: 'auto' }}>
+    <Paper style={{ height: "100%", overflow: "auto" }}>
       <NewProjectModal setRootFolder={setRootFolder} />
       <List
         dense

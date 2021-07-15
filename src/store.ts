@@ -1,16 +1,21 @@
-import { configureStore, getDefaultMiddleware, Action } from '@reduxjs/toolkit';
-import { createLogger } from 'redux-logger';
-import { ThunkAction } from 'redux-thunk';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { configureStore, getDefaultMiddleware, Action } from "@reduxjs/toolkit";
+import { createLogger } from "redux-logger";
+import { ThunkAction } from "redux-thunk";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 // eslint-disable-next-line import/no-cycle
-import rootReducer from './rootReducer';
+import rootReducer from "./rootReducer";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage,
-  whitelist: ['theme'],
+  whitelist: ["theme"],
 };
 export type RootState = ReturnType<typeof rootReducer>;
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -20,14 +25,14 @@ const middleware = [
   }),
 ];
 
-const excludeLoggerEnvs = ['test', 'production'];
+const excludeLoggerEnvs = ["test", "production"];
 const shouldIncludeLogger = !excludeLoggerEnvs.includes(
-  process.env.NODE_ENV || ''
+  process.env.NODE_ENV || ""
 );
 
 if (shouldIncludeLogger) {
   const logger = createLogger({
-    level: 'info',
+    level: "info",
     collapsed: true,
   });
   middleware.push(logger);
@@ -40,11 +45,9 @@ const configuredStore = () => {
     middleware,
   });
 
-  if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept(
-      './rootReducer',
-      // eslint-disable-next-line global-require
-      () => store.replaceReducer(require('./rootReducer').default)
+  if (process.env.NODE_ENV === "development" && module.hot) {
+    module.hot.accept("./rootReducer", () =>
+      store.replaceReducer(require("./rootReducer").default)
     );
   }
   return store;

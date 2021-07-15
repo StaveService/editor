@@ -5,14 +5,14 @@ import React, {
   useCallback,
   SetStateAction,
   Dispatch,
-} from 'react';
-import path from 'path';
-import TextField from '@material-ui/core/TextField';
-import { IFolder } from '../../../../common/interface';
-import { addFile, addFolder, getFolder } from '../../../../common/fs';
+} from "react";
+import path from "path";
+import TextField from "@material-ui/core/TextField";
+import { IFolder } from "../../../../common/interface";
+import { addFile, addFolder, getFolder } from "../../../../common/fs";
 
 interface IInputProps {
-  readonly inputType: 'file' | 'folder';
+  readonly inputType: "file" | "folder";
   readonly filePath: string;
   readonly setActiveInput: Dispatch<SetStateAction<boolean>>;
   readonly setFiles: Dispatch<SetStateAction<IFolder[]>>;
@@ -24,20 +24,20 @@ const Input = ({
   setActiveInput,
   setFiles,
 }: IInputProps) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key !== 'Enter') return;
+      if (e.key !== "Enter") return;
       if (!value) {
         setActiveInput(false);
         return;
       }
       const filesPath = path.join(filePath, value);
-      if (inputType === 'folder') addFolder(filesPath);
-      if (inputType === 'file') addFile(filesPath);
+      if (inputType === "folder") addFolder(filesPath);
+      if (inputType === "file") addFile(filesPath);
       setFiles(getFolder(filePath));
-      setValue('');
+      setValue("");
       setActiveInput(false);
     },
     [filePath, inputType, setActiveInput, setFiles, value]

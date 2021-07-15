@@ -1,4 +1,4 @@
-import { synth, AlphaTabApi } from '../alphatab-1.1.0/package/dist/alphaTab';
+import { synth, AlphaTabApi } from "../alphatab-1.1.0/package/dist/alphaTab";
 
 export interface IFilesBase {
   readonly fileName: string;
@@ -6,7 +6,7 @@ export interface IFilesBase {
 }
 
 export interface IFolder extends IFilesBase {
-  readonly fileType?: 'file' | 'folder';
+  readonly fileType?: "file" | "folder";
 }
 
 export interface IFile extends IFilesBase {
@@ -20,7 +20,7 @@ export interface IFiles extends IFolder, IFile {}
 export interface INewProjectFormValues {
   title: string;
   artist: string;
-  template: 'empty' | 'band' | 'piano';
+  template: "empty" | "band" | "piano";
   bpm: number;
   subtitle: string;
   album: string;

@@ -1,15 +1,18 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useRef, MouseEvent } from 'react';
-import { IoIosClose, IoIosCloseCircle } from 'react-icons/io';
-import { GoSync } from 'react-icons/go';
-import styles from './CloseBtn.sass';
+import React, { useState, useRef, MouseEvent } from "react";
+import { IoIosClose, IoIosCloseCircle } from "react-icons/io";
+import { GoSync } from "react-icons/go";
+import styles from "./CloseBtn.sass";
 
 interface CloseBtnProps {
   onClick: (e: MouseEvent<HTMLDivElement>) => void;
   isChanged: boolean | void;
 }
-const CloseBtn = ({ isChanged, onClick }: CloseBtnProps) => {
+const CloseBtn: React.FC<CloseBtnProps> = ({
+  isChanged,
+  onClick,
+}: CloseBtnProps) => {
   const [onHover, setHover] = useState(false);
   const closeBtnRef = useRef<HTMLDivElement>(null);
   const CloseIcon = () => (onHover ? <IoIosCloseCircle /> : <IoIosClose />);

@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { monaco } from 'react-monaco-editor';
-import { useSelector } from 'react-redux';
-import SplitPane from 'react-split-pane';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Box from '@material-ui/core/Box';
-import useScript from 'react-script-hook';
-import { AlphaTabApi } from '../alphatab-1.1.0/package/dist/alphaTab';
-import Editor from './Editor';
-import Explorer from './Explorer';
-import Score from './Score';
-import Header from './Header';
-import Footer from './Footer';
-import SettingModal from './Modal/Setting';
-import MonacoModelsContext from '../contexts/MonacoModels';
-import { selectTheme } from '../slices/theme';
-import { IAlphaTab } from '../common/interface';
+import React, { useEffect, useRef, useState } from "react";
+import { monaco } from "react-monaco-editor";
+import { useSelector } from "react-redux";
+import SplitPane from "react-split-pane";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Box from "@material-ui/core/Box";
+import useScript from "react-script-hook";
+import { AlphaTabApi } from "../alphatab-1.1.0/package/dist/alphaTab";
+import Editor from "./Editor";
+import Explorer from "./Explorer";
+import Score from "./Score";
+import Header from "./Header";
+import Footer from "./Footer";
+import SettingModal from "./Modal/Setting";
+import MonacoModelsContext from "../contexts/MonacoModels";
+import { selectTheme } from "../slices/theme";
+import { IAlphaTab } from "../common/interface";
 
 export default function Main(): JSX.Element {
   const [monacoModels, setMonacoModels] = useState<monaco.editor.ITextModel[]>(
@@ -25,7 +25,7 @@ export default function Main(): JSX.Element {
   const mainRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [loading] = useScript({
-    src: './alphatab-1.1.0/package/dist/alphaTab.js',
+    src: "./alphatab-1.1.0/package/dist/alphaTab.js",
   });
   const theme = useSelector(selectTheme);
   const materialTheme = createMuiTheme({
@@ -39,7 +39,7 @@ export default function Main(): JSX.Element {
         new window.alphaTab.AlphaTabApi(mainRef.current, {
           tex: true,
           player: {
-            soundFont: 'alphatab-1.1.0/package/dist/soundfont/sonivox.sf2',
+            soundFont: "alphatab-1.1.0/package/dist/soundfont/sonivox.sf2",
             enablePlayer: true,
           },
         })
@@ -57,16 +57,16 @@ export default function Main(): JSX.Element {
               split="vertical"
               defaultSize="280px"
               minSize={80}
-              style={{ position: 'relative' }}
+              style={{ position: "relative" }}
             >
               <Explorer />
               <SplitPane
                 split="horizontal"
                 defaultSize="90%"
                 pane2Style={{
-                  height: '100%',
-                  minHeight: '50px',
-                  overflow: 'hidden',
+                  height: "100%",
+                  minHeight: "50px",
+                  overflow: "hidden",
                 }}
               >
                 <SplitPane minSize={50} defaultSize="50%" split="vertical">

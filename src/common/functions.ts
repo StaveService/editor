@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
-import { monaco } from 'react-monaco-editor';
+import { Dispatch, SetStateAction } from "react";
+import { monaco } from "react-monaco-editor";
 
 interface IFile {
   fileText: string;

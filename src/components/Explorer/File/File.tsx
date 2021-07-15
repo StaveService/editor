@@ -1,16 +1,16 @@
-import React, { useCallback, useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DescriptionIcon from '@material-ui/icons/Description';
-import { Typography } from '@material-ui/core';
-import { IFile } from '../../../common/interface';
-import { getFile } from '../../../common/fs';
-import { add } from '../../../slices/tab';
-import MonacoModelsContext from '../../../contexts/MonacoModels';
-import { createMonacoModel } from '../../../common/functions';
+import React, { useCallback, useContext } from "react";
+import { useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import DescriptionIcon from "@material-ui/icons/Description";
+import { Typography } from "@material-ui/core";
+import { IFile } from "../../../common/interface";
+import { getFile } from "../../../common/fs";
+import { add } from "../../../slices/tab";
+import MonacoModelsContext from "../../../contexts/MonacoModels";
+import { createMonacoModel } from "../../../common/functions";
 
 interface IFileProps extends IFile {
   nestCount: number;
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2 * nestCount),
   }),
   listItemIcon: {
-    minWidth: '30px',
+    minWidth: "30px",
   },
 }));
 

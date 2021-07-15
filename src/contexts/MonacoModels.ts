@@ -1,5 +1,5 @@
-import { createContext, Dispatch, SetStateAction } from 'react';
-import { monaco } from 'react-monaco-editor';
+import { createContext, Dispatch, SetStateAction } from "react";
+import { monaco } from "react-monaco-editor";
 
 interface UseMonacoModelsState {
   readonly monacoModels: monaco.editor.ITextModel[];

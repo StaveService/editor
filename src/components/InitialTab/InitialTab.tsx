@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const InitialTab = () => {
   return <h2>Welcome</h2>;
