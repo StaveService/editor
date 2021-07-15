@@ -1,3 +1,9 @@
 [submodule "src/ui"]
 	path = src/ui
 	url = https://github.com/StaveService/ui.git 
+[submodule "d9e7a0946e1bbb9ce05d96866549d4fc"]
+	path = d9e7a0946e1bbb9ce05d96866549d4fc
+	url = https://gist.github.com/d9e7a0946e1bbb9ce05d96866549d4fc.git
+[submodule "src/hooks/useOpen"]
+	path = src/hooks/useOpen
+	url = https://gist.github.com/d9e7a0946e1bbb9ce05d96866549d4fc.git
