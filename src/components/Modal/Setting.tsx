@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -16,20 +16,19 @@ import { useDispatch } from "react-redux";
 import { change } from "../../slices/theme";
 import ipc from "../../constants/ipc.json";
 import { useModalStyle } from "../../common/materialStyles";
+import useOpen from "../../hooks/useOpen/useOpen";
 
 const Setting = () => {
-  const [open, setOpen] = useState(false);
+  const [open, handleOpen, handleClose] = useOpen();
   const classes = useModalStyle();
   const dispatch = useDispatch();
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const handleChange = () => dispatch(change());
   useEffect(() => {
     ipcRenderer.on(ipc.openSettingModal, handleOpen);
     return () => {
       ipcRenderer.removeAllListeners(ipc.openNewProjectModal);
     };
-  }, []);
+  }, [handleOpen]);
   return (
     <Modal
       open={open}

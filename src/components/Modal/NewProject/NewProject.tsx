@@ -16,7 +16,6 @@ import Fade from "@material-ui/core/Fade";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import InputBase from "@material-ui/core/InputBase";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -27,7 +26,6 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import Alert from "@material-ui/lab/Alert";
 import IconButton from "@material-ui/core/IconButton";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import MonacoModelsContext from "../../../contexts/MonacoModels";
@@ -37,20 +35,24 @@ import { openFolderRemote } from "../../../common/dialog";
 import { addTemplate } from "../../../common/templates";
 import { IFolder, INewProjectFormValues } from "../../../common/interface";
 import { useModalStyle } from "../../../common/materialStyles";
+import useOpen from "../../../hooks/useOpen/useOpen";
+import ControlTextField from "../../ControlTextField/ControlTextField";
 
 interface INewProjectModal {
   setRootFolder: Dispatch<SetStateAction<IFolder | undefined>>;
 }
 const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
-  const [open, setOpen] = useState(false);
+  const [open, handleOpen, handleClose] = useOpen();
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [error, setError] = useState("");
   const { setMonacoModels } = useContext(MonacoModelsContext);
   const dispatch = useDispatch();
   const classes = useModalStyle();
-  const { control, handleSubmit, setValue } = useForm();
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+  } = useForm();
   const handleClick = async () =>
     setValue("projectPath", await openFolderRemote());
   const handleChange =
@@ -78,7 +80,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
     return () => {
       ipcRenderer.removeAllListeners(ipc.openNewProjectModal);
     };
-  }, []);
+  }, [handleOpen]);
 
   return (
     <Modal
@@ -97,11 +99,18 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
             New Project
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="title"
+            <ControlTextField
               control={control}
+              errors={errors}
+              name="title"
+              label="Title"
               defaultValue=""
               rules={{ required: true, maxLength: 100 }}
+              fullWidth
+            />
+            {/* <Controller
+              name="title"
+              control={control}
               render={({ ref, value, onChange }, { invalid }) => (
                 <TextField
                   label="Title"
@@ -123,22 +132,16 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                   error={invalid}
                 />
               )}
-            />
-            <Controller
-              name="artist"
+            /> */}
+            <ControlTextField
               control={control}
+              errors={errors}
+              name="artist"
               defaultValue=""
               rules={{ required: true, maxLength: 100 }}
-              render={({ ref, onChange }, { invalid }) => (
-                <TextField
-                  label="Artist"
-                  variant="filled"
-                  fullWidth
-                  inputRef={ref}
-                  onChange={(e) => onChange(e.target.value)}
-                  error={invalid}
-                />
-              )}
+              label="Artist"
+              variant="filled"
+              fullWidth
             />
 
             <Accordion
@@ -155,7 +158,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                     control={control}
                     defaultValue="empty"
                     rules={{ required: true }}
-                    render={({ ref, value, onChange }) => (
+                    render={({ field: { ref, value, onChange } }) => (
                       <RadioGroup
                         ref={ref}
                         value={value}
@@ -186,91 +189,58 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Box>
-                  <Controller
-                    name="bpm"
+                  <ControlTextField
                     control={control}
+                    errors={errors}
+                    name="bpm"
                     defaultValue={90}
                     rules={{ maxLength: 100 }}
-                    render={({ ref, value, onChange }, { invalid }) => (
-                      <TextField
-                        label="BPM"
-                        variant="filled"
-                        size="small"
-                        fullWidth
-                        value={value}
-                        inputRef={ref}
-                        onChange={(e) => onChange(e.target.value)}
-                        error={invalid}
-                      />
-                    )}
+                    label="BPM"
+                    variant="filled"
+                    size="small"
+                    fullWidth
                   />
-                  <Controller
+                  <ControlTextField
                     name="subtitle"
                     control={control}
+                    errors={errors}
                     defaultValue=""
                     rules={{ maxLength: 100 }}
-                    render={({ ref, onChange }, { invalid }) => (
-                      <TextField
-                        label="Subtitle"
-                        variant="filled"
-                        size="small"
-                        fullWidth
-                        inputRef={ref}
-                        onChange={(e) => onChange(e.target.value)}
-                        error={invalid}
-                      />
-                    )}
+                    label="Subtitle"
+                    variant="filled"
+                    size="small"
+                    fullWidth
                   />
-                  <Controller
-                    name="album"
+                  <ControlTextField
                     control={control}
+                    errors={errors}
+                    name="album"
                     defaultValue=""
                     rules={{ maxLength: 100 }}
-                    render={({ ref, onChange }, { invalid }) => (
-                      <TextField
-                        label="Album"
-                        variant="filled"
-                        size="small"
-                        fullWidth
-                        inputRef={ref}
-                        onChange={(e) => onChange(e.target.value)}
-                        error={invalid}
-                      />
-                    )}
+                    label="Album"
+                    variant="filled"
+                    size="small"
+                    fullWidth
                   />
-                  <Controller
+                  <ControlTextField
                     name="music"
                     control={control}
                     defaultValue=""
                     rules={{ maxLength: 100 }}
-                    render={({ ref, onChange }, { invalid }) => (
-                      <TextField
-                        label="Music"
-                        variant="filled"
-                        size="small"
-                        fullWidth
-                        inputRef={ref}
-                        onChange={(e) => onChange(e.target.value)}
-                        error={invalid}
-                      />
-                    )}
+                    label="Music"
+                    variant="filled"
+                    size="small"
+                    fullWidth
                   />
-                  <Controller
+                  <ControlTextField
                     name="words"
                     control={control}
                     defaultValue=""
                     rules={{ maxLength: 100 }}
-                    render={({ ref, onChange }, { invalid }) => (
-                      <TextField
-                        label="Words"
-                        variant="filled"
-                        size="small"
-                        fullWidth
-                        inputRef={ref}
-                        onChange={(e) => onChange(e.target.value)}
-                        error={invalid}
-                      />
-                    )}
+                    label="Words"
+                    variant="filled"
+                    size="small"
+                    fullWidth
                   />
                 </Box>
               </AccordionDetails>
@@ -284,7 +254,10 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                 maxLength: 100,
                 validate: (value) => !fs.existsSync(value) || "File is exist",
               }}
-              render={({ ref, value, onChange }, { invalid }) => (
+              render={({
+                field: { ref, value, onChange },
+                fieldState: { invalid },
+              }) => (
                 <Paper>
                   <Box display="flex" alignItems="center" pl={2}>
                     <InputBase
@@ -302,7 +275,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                 </Paper>
               )}
             />
-            {error && <Alert severity="error">{error}</Alert>}
+            {/* {error && <Alert severity="error">{error}</Alert>} */}
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Create New Project
             </Button>
