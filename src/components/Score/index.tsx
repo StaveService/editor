@@ -11,9 +11,10 @@ import { selectTabs, selectActiveTabIndex } from "../../slices/tab";
 import styles from "./index.sass";
 import Tracks, { ITrack } from "../../ui/Tracks";
 import { getFile } from "../../common/fs";
-import compileJS from "../../common/vm";
 import { usePaperStyles } from "../../common/materialStyles";
 import { AlphaTabApi } from "../../alphatab-1.1.0/package/dist/alphaTab";
+
+const compileJS = require("../../common/vm");
 
 interface ScoreProps {
   mainRef: MutableRefObject<HTMLDivElement | null>;

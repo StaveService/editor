@@ -1,7 +1,8 @@
 import { remote, dialog } from "electron";
 import path from "path";
 import { addFile } from "./fs";
-import compileJS from "./vm";
+
+const compileJS = require("./vm");
 
 type Properties =
   | "openFile"

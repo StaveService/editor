@@ -1,6 +1,6 @@
-import vm from "vm";
-import path from "path";
-import fs from "fs";
+const vm = require("vm");
+const fs = require("fs");
+const path = require("path");
 
 const compileJS = (filePath: string) => {
   const fileText = fs.readFileSync(filePath, "utf-8");
@@ -34,4 +34,4 @@ const compileJS = (filePath: string) => {
   return result;
 };
 
-export default compileJS;
+module.exports = compileJS;
