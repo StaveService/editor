@@ -29,10 +29,8 @@ const Score = ({ mainRef, scrollRef, alphaTabApi }: ScoreProps) => {
   const activeTabIndex = useSelector(selectActiveTabIndex);
   const classes = usePaperStyles();
   // handlers
-  const handleListItemClick = (track: typeof ITrack, i: number) => {
+  const handleListItemClick = (track: any, i: number) => {
     setSelectedIndex(i);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     alphaTabApi?.renderTracks([track]);
   };
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
