@@ -9,10 +9,9 @@ import Box from "@material-ui/core/Box";
 import useComponentSize from "@rehooks/component-size";
 import { selectTabs, selectActiveTabIndex } from "../../slices/tab";
 import styles from "./index.sass";
-// import Tracks from './Tracks/Tracks';
 import Tracks, { ITrack } from "../../ui/Tracks";
 import { getFile } from "../../common/fs";
-import { compileJS } from "../../common/vm";
+import compileJS from "../../common/vm";
 import { usePaperStyles } from "../../common/materialStyles";
 import { AlphaTabApi } from "../../alphatab-1.1.0/package/dist/alphaTab";
 

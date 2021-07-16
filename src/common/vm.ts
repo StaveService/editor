@@ -2,7 +2,7 @@ import vm from "vm";
 import path from "path";
 import fs from "fs";
 
-export const compileJS = (filePath: string) => {
+const compileJS = (filePath: string) => {
   const fileText = fs.readFileSync(filePath, "utf-8");
   const jsFileDir = path.dirname(filePath);
   const dirname =
@@ -34,4 +34,4 @@ export const compileJS = (filePath: string) => {
   return result;
 };
 
-export default () => {};
+export default compileJS;
