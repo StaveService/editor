@@ -6,7 +6,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import NewProjectModal from "../Modal/NewProject/NewProject";
+import NewProjectModal from "../Modal/NewProject";
 import { IFolder } from "../../common/interface";
 import { openFolderRemote } from "../../common/dialog";
 import { getFolder } from "../../common/fs";

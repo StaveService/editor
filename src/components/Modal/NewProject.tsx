@@ -28,15 +28,15 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import MonacoModelsContext from "../../../contexts/MonacoModels";
-import { refresh } from "../../../slices/tab";
-import ipc from "../../../constants/ipc.json";
-import { openFolderRemote } from "../../../common/dialog";
-import { addTemplate } from "../../../common/templates";
-import { IFolder, INewProjectFormValues } from "../../../common/interface";
-import { useModalStyle } from "../../../common/materialStyles";
-import useOpen from "../../../hooks/useOpen/useOpen";
-import ControlTextField from "../../ControlTextField/ControlTextField";
+import MonacoModelsContext from "../../contexts/MonacoModels";
+import { refresh } from "../../slices/tab";
+import ipc from "../../constants/ipc.json";
+import { openFolderRemote } from "../../common/dialog";
+import { addTemplate } from "../../common/templates";
+import { IFolder, INewProjectFormValues } from "../../common/interface";
+import { useModalStyle } from "../../common/materialStyles";
+import useOpen from "../../hooks/useOpen/useOpen";
+import ControlTextField from "../ControlTextField/ControlTextField";
 
 interface INewProjectModal {
   setRootFolder: Dispatch<SetStateAction<IFolder | undefined>>;
@@ -47,12 +47,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
   const { setMonacoModels } = useContext(MonacoModelsContext);
   const dispatch = useDispatch();
   const classes = useModalStyle();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-  } = useForm();
+  const { control, errors, handleSubmit, setValue } = useForm();
   const handleClick = async () =>
     setValue("projectPath", await openFolderRemote());
   const handleChange =
@@ -158,7 +153,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                     control={control}
                     defaultValue="empty"
                     rules={{ required: true }}
-                    render={({ field: { ref, value, onChange } }) => (
+                    render={({ ref, value, onChange }) => (
                       <RadioGroup
                         ref={ref}
                         value={value}
@@ -254,10 +249,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                 maxLength: 100,
                 validate: (value) => !fs.existsSync(value) || "File is exist",
               }}
-              render={({
-                field: { ref, value, onChange },
-                fieldState: { invalid },
-              }) => (
+              render={({ ref, value, onChange }, { invalid }) => (
                 <Paper>
                   <Box display="flex" alignItems="center" pl={2}>
                     <InputBase
