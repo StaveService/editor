@@ -16,8 +16,8 @@ import {
 } from "../../../slices/tab";
 
 const EditorTabs: React.FC = () => {
-  const tabs = useSelector(selectTabs);
   const dispatch = useDispatch();
+  const tabs = useSelector(selectTabs);
   const activeTabIndex = useSelector(selectActiveTabIndex);
   const { setMonacoModels } = useContext(MonacoModelsContext);
   const handleChange = (
