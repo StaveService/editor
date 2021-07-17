@@ -17,7 +17,7 @@ import MonacoModelsContext from "../contexts/MonacoModels";
 import { selectTheme } from "../slices/theme";
 import { IAlphaTab } from "../common/interface";
 
-export default function Main(): JSX.Element {
+const Main: React.FC = () => {
   const [monacoModels, setMonacoModels] = useState<monaco.editor.ITextModel[]>(
     []
   );
@@ -85,9 +85,11 @@ export default function Main(): JSX.Element {
       </MonacoModelsContext.Provider>
     </ThemeProvider>
   );
-}
+};
 declare global {
   interface Window {
     alphaTab: IAlphaTab;
   }
 }
+
+export default Main;

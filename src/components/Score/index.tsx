@@ -33,7 +33,6 @@ const Score = ({ mainRef, scrollRef, alphaTabApi }: ScoreProps) => {
     setSelectedIndex(i);
     alphaTabApi?.renderTracks([track]);
   };
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const scoreLoaded = (score: any) => setTracks(score.tracks);
   const renderStarted = useCallback(() => {
     if (alphaTabApi) setSelectedIndex(alphaTabApi?.tracks[0].index);
