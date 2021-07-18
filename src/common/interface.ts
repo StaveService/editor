@@ -26,7 +26,7 @@ export interface INewProjectFormValues {
   album: string;
   words: string;
   music: string;
-  projectPath: string;
+  workDir: string;
 }
 export interface IAlphaTab {
   AlphaTabApi: typeof AlphaTabApi;

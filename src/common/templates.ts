@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import { addFile, addFolder } from "./fs";
 import { INewProjectFormValues } from "./interface";
 
@@ -22,8 +23,9 @@ module.export = \`
 ${content}
 \``;
 export const addEmpty = (data: INewProjectFormValues) => {
-  addFolder(data.projectPath);
-  addFile(path.join(data.projectPath, "index.js"), createIndex(data));
+  const projectDir = path.join(data.workDir, data.title);
+  fs.mkdirSync(projectDir, { recursive: true });
+  fs.writeFileSync(path.join(projectDir, "index.js"), createIndex(data));
 };
 
 export const addBand = (data: INewProjectFormValues) => {
@@ -38,14 +40,14 @@ export const addBand = (data: INewProjectFormValues) => {
     .map((instrument) => `\${${instrument}}`)
     .join("\n");
 
-  addFolder(data.projectPath);
+  addFolder(data.workDir);
   addFile(
-    path.join(data.projectPath, "index.js"),
+    path.join(data.workDir, "index.js"),
     createIndex(data, defines, content)
   );
 
   instruments.forEach((instrument) => {
-    const instrumentFolder = path.join(data.projectPath, instrument);
+    const instrumentFolder = path.join(data.workDir, instrument);
     addFolder(instrumentFolder);
     addFile(
       path.join(instrumentFolder, `${instrument}.js`),

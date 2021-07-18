@@ -1,6 +1,7 @@
 import { remote, ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
+import simpleGit from "simple-git";
 import React, { Dispatch, SetStateAction, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
@@ -45,22 +46,24 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
   const { control, errors, handleSubmit, setValue } = useForm({
     resolver: yupResolver(projectSchema),
   });
-  const handleClick = async () =>
-    setValue("projectPath", await openFolderRemote());
+  const handleClick = async () => setValue("workDir", await openFolderRemote());
 
   const onSubmit: SubmitHandler<INewProjectFormValues> = (data) => {
+    const projectDir = path.join(data.workDir, data.title);
     addTemplate(data);
-    handleClose();
+    const git = simpleGit(projectDir);
+    git.init();
     dispatch(refresh());
     setMonacoModels((prevMonacoModels) => {
       prevMonacoModels.forEach((model) => model.dispose());
       return [];
     });
     setRootFolder({
-      filePath: data.projectPath,
+      filePath: projectDir,
       fileType: "folder",
       fileName: data.title,
     });
+    handleClose();
   };
 
   useEffect(() => {
@@ -82,11 +85,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
     >
       <Fade in={open}>
         <Box>
-          <DialogTitle>
-            <Typography variant="h6" align="center" gutterBottom>
-              New Project
-            </Typography>
-          </DialogTitle>
+          <DialogTitle>New Project</DialogTitle>
           <DialogContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <ControlTextField
@@ -202,7 +201,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
                 </AccordionDetails>
               </Accordion>
               <Controller
-                name="projectPath"
+                name="workDir"
                 control={control}
                 defaultValue={path.join(
                   remote.app.getPath("documents"),
