@@ -69,6 +69,7 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     titleBarStyle: "hidden",
+    frame: false,
     show: false,
     width: 1024,
     height: 728,

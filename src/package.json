@@ -14,7 +14,5 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {
-    "@hookform/error-message": "^2.0.0"
-  }
+  "dependencies": {}
 }

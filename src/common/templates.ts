@@ -68,4 +68,3 @@ export const addTemplate = (data: INewProjectFormValues) => {
       break;
   }
 };
-export default () => {};
