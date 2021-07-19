@@ -1,4 +1,4 @@
-import { synth, AlphaTabApi } from "../alphatab-1.1.0/package/dist/alphaTab";
+import { synth, AlphaTabApi } from "./alphatab-1.1.0/package/dist/alphaTab";
 
 export interface INewProjectFormValues {
   title: string;
@@ -14,4 +14,7 @@ export interface INewProjectFormValues {
 export interface IAlphaTab {
   AlphaTabApi: typeof AlphaTabApi;
   synth: typeof synth;
+}
+export interface IUser {
+  name: string;
 }

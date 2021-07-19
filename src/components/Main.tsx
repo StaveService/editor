@@ -15,7 +15,7 @@ import Footer from "./Footer";
 import SettingModal from "./Modal/Setting";
 import MonacoModelsContext from "../contexts/MonacoModels";
 import { selectTheme } from "../slices/theme";
-import { IAlphaTab } from "../common/interface";
+import { IAlphaTab } from "../interfaces";
 
 const Main: React.FC = () => {
   const [monacoModels, setMonacoModels] = useState<monaco.editor.ITextModel[]>(

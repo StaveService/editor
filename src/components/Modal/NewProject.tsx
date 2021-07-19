@@ -32,7 +32,7 @@ import { refresh } from "../../slices/tab";
 import ipc from "../../constants/ipc.json";
 import { openFolderRemote } from "../../common/dialog";
 import { addTemplate } from "../../common/templates";
-import { INewProjectFormValues } from "../../common/interface";
+import { INewProjectFormValues } from "../../interfaces";
 import { projectSchema } from "../../schema";
 import useOpen from "../../hooks/useOpen/useOpen";
 

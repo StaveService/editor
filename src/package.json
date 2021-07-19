@@ -14,5 +14,9 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.21.1",
+    "notistack": "^1.0.9",
+    "react-query": "^3.19.0"
+  }
 }

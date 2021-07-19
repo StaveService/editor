@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { INewProjectFormValues } from "./interface";
+import { INewProjectFormValues } from "../interfaces";
 
 const createIndex = (
   { title, subtitle, artist, album, words, music, bpm }: INewProjectFormValues,
