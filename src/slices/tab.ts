@@ -1,14 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // eslint-disable-next-line import/no-cycle
 import { RootState } from "../store";
-import { IFile } from "../common/interface";
 
-export interface ITab {
-  tabs: IFile[];
+export interface ITabModel {
+  tabs: ITab[];
   activeTabIndex: number;
 }
+export interface IFile {
+  filePath: string;
+  fileText: string;
+}
+export interface ITab extends IFile {
+  isChanged?: boolean;
+  createMonacoModel: ({ filePath, fileText }: IFile) => void;
+}
 
-const initialState: ITab = {
+const initialState: ITabModel = {
   tabs: [],
   activeTabIndex: -1,
 };
@@ -17,7 +24,7 @@ const tabSlice = createSlice({
   name: "tab",
   initialState,
   reducers: {
-    add: (state, action) => {
+    add: (state, action: PayloadAction<ITab>) => {
       let isExist = false;
       state.tabs.forEach((tab, i) => {
         if (tab.filePath === action.payload.filePath) {
@@ -26,8 +33,9 @@ const tabSlice = createSlice({
         }
       });
       if (!isExist) {
-        const { fileText, fileName } = action.payload;
-        action.payload.createMonacoModel({ fileText, fileName });
+        const { fileText, filePath } = action.payload;
+
+        action.payload.createMonacoModel({ fileText, filePath });
         state.tabs = [...state.tabs, { ...action.payload, isChanged: false }];
         state.activeTabIndex = state.tabs.length - 1;
       }

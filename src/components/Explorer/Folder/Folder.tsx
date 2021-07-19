@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import React, { useMemo, useState, useCallback, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -13,14 +15,13 @@ import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import DescriptionIcon from "@material-ui/icons/Description";
 import ReplayIcon from "@material-ui/icons/Replay";
 import { Typography } from "@material-ui/core";
-import { IFolder } from "../../../common/interface";
-import { getFolder } from "../../../common/fs";
 // eslint-disable-next-line import/no-cycle
 import Files from "../Files/Files";
 import FilesInputs from "../Files/Input/Input";
 import Icons from "./Icons/Icon";
 
-interface IFolderProps extends IFolder {
+interface IFolderProps {
+  filePath: string;
   isRoot?: boolean;
   nestCount: number;
 }
@@ -34,16 +35,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Folder = ({ fileName, filePath, isRoot, nestCount }: IFolderProps) => {
+const Folder = ({ filePath, isRoot, nestCount }: IFolderProps) => {
   const classes = useStyles({ nestCount });
   const [isActiveFileInput, setIsActiveFileInput] = useState(false);
   const [isActiveFolderInput, setIsActiveFolderInput] = useState(false);
-  const [files, setFiles] = useState<IFolder[]>([]);
+  const [files, setFiles] = useState<string[]>([]);
   const [openFolder, setOpenFolder] = useState(false);
 
   const handleToggleFolder = useCallback(() => {
     if (!openFolder) {
-      setFiles(getFolder(filePath));
+      setFiles(fs.readdirSync(filePath));
       setOpenFolder(true);
     } else {
       setFiles([]);
@@ -53,12 +54,12 @@ const Folder = ({ fileName, filePath, isRoot, nestCount }: IFolderProps) => {
 
   const handleClickIcons = () => {
     setOpenFolder(true);
-    setFiles(getFolder(filePath));
+    setFiles(fs.readdirSync(filePath));
   };
   const handleActiveFileInput = () => setIsActiveFileInput(true);
   const handleActiveFolderInput = () => setIsActiveFolderInput(true);
   const handleFilesRefresh = useCallback(
-    () => setFiles(getFolder(filePath)),
+    () => setFiles(fs.readdirSync(filePath)),
     [filePath]
   );
 
@@ -103,7 +104,7 @@ const Folder = ({ fileName, filePath, isRoot, nestCount }: IFolderProps) => {
   // when open accordion & open folder, close accorion
   useEffect(() => {
     setOpenFolder(false);
-  }, [fileName]);
+  }, [filePath]);
 
   return (
     <>
@@ -120,7 +121,7 @@ const Folder = ({ fileName, filePath, isRoot, nestCount }: IFolderProps) => {
           primary={
             <Box pr={13}>
               <Typography variant="body2" noWrap>
-                {fileName}
+                {path.basename(filePath)}
               </Typography>
             </Box>
           }
@@ -132,7 +133,7 @@ const Folder = ({ fileName, filePath, isRoot, nestCount }: IFolderProps) => {
       <Collapse in={openFolder} unmountOnExit>
         <List component="div" disablePadding>
           <FilesInputs inputs={inputs} />
-          <Files files={files} nestCount={nestCount + 1} />
+          <Files filePath={filePath} files={files} nestCount={nestCount + 1} />
         </List>
       </Collapse>
     </>

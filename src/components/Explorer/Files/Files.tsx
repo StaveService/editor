@@ -1,39 +1,27 @@
+import fs from "fs";
+import path from "path";
 import React from "react";
 // eslint-disable-next-line import/no-cycle
 import Folder from "../Folder/Folder";
 import File from "../File/File";
-import { IFiles } from "../../../common/interface";
 
 interface IFilesProps {
-  files: IFiles[];
+  files: string[];
+  filePath: string;
   nestCount: number;
 }
-const Files = ({ files, nestCount }: IFilesProps) => {
-  const listItems = files.map(
-    ({ fileType, fileName, filePath, fileExt, isChanged }) => {
-      if (fileType === "file")
-        return (
-          <File
-            key={filePath}
-            fileName={fileName}
-            filePath={filePath}
-            fileExt={fileExt}
-            isChanged={isChanged}
-            nestCount={nestCount}
-          />
-        );
-      if (fileType === "folder")
-        return (
-          <Folder
-            key={filePath}
-            fileName={fileName}
-            filePath={filePath}
-            nestCount={nestCount}
-          />
-        );
-      return null;
+const Files = ({ files, filePath, nestCount }: IFilesProps) => {
+  const listItems = files.map((file) => {
+    const newFilePath = path.join(filePath, file);
+    if (!fs.statSync(newFilePath).isDirectory()) {
+      return (
+        <File key={newFilePath} filePath={newFilePath} nestCount={nestCount} />
+      );
     }
-  );
+    return (
+      <Folder key={newFilePath} filePath={newFilePath} nestCount={nestCount} />
+    );
+  });
   return <>{listItems}</>;
 };
 

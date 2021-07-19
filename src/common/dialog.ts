@@ -1,6 +1,6 @@
 import { remote, dialog } from "electron";
 import path from "path";
-import { addFile } from "./fs";
+import fs from "fs";
 
 const compileJS = require("./vm");
 
@@ -39,7 +39,10 @@ export const saveTexFile = async () => {
   });
   const { canceled, filePath } = savedFiles;
   if (canceled || !filePath) return null;
-  addFile(filePath, compileJS(path.join(path.dirname(filePath), "index.js")));
+  fs.writeFileSync(
+    filePath,
+    compileJS(path.join(path.dirname(filePath), "index.js"))
+  );
   return null;
 };
 

@@ -27,20 +27,17 @@ const Editor = () => {
   const handleChange = () => dispatch(change());
   const saveTab = useCallback(() => {
     const { filePath } = tabs[activeTabIndex];
-    fs.writeFileSync(filePath, editorRef.current?.editor?.getValue());
+    fs.writeFileSync(filePath, editorRef.current?.editor?.getValue() || "");
     dispatch(changed());
   }, [activeTabIndex, dispatch, tabs]);
 
   // open file
   useEffect(() => {
-    ipcRenderer.on(ipc.openFile, (_e, file) => {
-      const { fileText, filePath, fileExt, fileName } = file;
+    ipcRenderer.on(ipc.openFile, (_e, filePath: string) => {
       dispatch(
         add({
           filePath,
-          fileExt,
-          fileName,
-          fileText,
+          fileText: fs.readFileSync(filePath, "utf-8"),
           createMonacoModel: createMonacoModel(setMonacoModels),
         })
       );

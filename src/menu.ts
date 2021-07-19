@@ -6,7 +6,6 @@ import {
   MenuItemConstructorOptions,
 } from "electron";
 import path from "path";
-import { getFile } from "./common/fs";
 import { openFolder, openFile, saveTexFile } from "./common/dialog";
 import ipc from "./constants/ipc.json";
 
@@ -201,7 +200,7 @@ export default class MenuBuilder {
           click: async () => {
             const filePath = await openFile();
             if (!filePath) return;
-            this.mainWindow.webContents.send(ipc.openFile, getFile(filePath));
+            this.mainWindow.webContents.send(ipc.openFile, filePath);
           },
         },
         {
@@ -267,7 +266,7 @@ export default class MenuBuilder {
             click: async () => {
               const filePath = await openFile();
               if (!filePath) return;
-              this.mainWindow.webContents.send(ipc.openFile, getFile(filePath));
+              this.mainWindow.webContents.send(ipc.openFile, filePath);
             },
           },
           {

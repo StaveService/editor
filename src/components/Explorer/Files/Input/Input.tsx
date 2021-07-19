@@ -1,3 +1,4 @@
+import fs from "fs";
 import React, {
   KeyboardEvent,
   ChangeEvent,
@@ -8,14 +9,12 @@ import React, {
 } from "react";
 import path from "path";
 import TextField from "@material-ui/core/TextField";
-import { IFolder } from "../../../../common/interface";
-import { addFile, addFolder, getFolder } from "../../../../common/fs";
 
 interface IInputProps {
   readonly inputType: "file" | "folder";
   readonly filePath: string;
   readonly setActiveInput: Dispatch<SetStateAction<boolean>>;
-  readonly setFiles: Dispatch<SetStateAction<IFolder[]>>;
+  readonly setFiles: Dispatch<SetStateAction<string[]>>;
 }
 
 const Input = ({
@@ -34,9 +33,9 @@ const Input = ({
         return;
       }
       const filesPath = path.join(filePath, value);
-      if (inputType === "folder") addFolder(filesPath);
-      if (inputType === "file") addFile(filesPath);
-      setFiles(getFolder(filePath));
+      if (inputType === "folder") fs.mkdirSync(filesPath);
+      if (inputType === "file") fs.writeFileSync(filesPath, "");
+      setFiles(fs.readdirSync(filePath));
       setValue("");
       setActiveInput(false);
     },

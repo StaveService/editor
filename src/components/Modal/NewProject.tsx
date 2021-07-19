@@ -32,12 +32,12 @@ import { refresh } from "../../slices/tab";
 import ipc from "../../constants/ipc.json";
 import { openFolderRemote } from "../../common/dialog";
 import { addTemplate } from "../../common/templates";
-import { IFolder, INewProjectFormValues } from "../../common/interface";
+import { INewProjectFormValues } from "../../common/interface";
 import { projectSchema } from "../../schema";
 import useOpen from "../../hooks/useOpen/useOpen";
 
 interface INewProjectModal {
-  setRootFolder: Dispatch<SetStateAction<IFolder | undefined>>;
+  setRootFolder: Dispatch<SetStateAction<string>>;
 }
 const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
   const [open, handleOpen, handleClose] = useOpen();
@@ -50,19 +50,15 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
 
   const onSubmit: SubmitHandler<INewProjectFormValues> = (data) => {
     const projectDir = path.join(data.workDir, data.title);
-    addTemplate(data);
     const git = simpleGit(projectDir);
     git.init();
+    addTemplate(data);
     dispatch(refresh());
     setMonacoModels((prevMonacoModels) => {
       prevMonacoModels.forEach((model) => model.dispose());
       return [];
     });
-    setRootFolder({
-      filePath: projectDir,
-      fileType: "folder",
-      fileName: data.title,
-    });
+    setRootFolder(projectDir);
     handleClose();
   };
 

@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import React, {
   useEffect,
   MutableRefObject,
@@ -10,7 +12,6 @@ import useComponentSize from "@rehooks/component-size";
 import { selectTabs, selectActiveTabIndex } from "../../slices/tab";
 import styles from "./index.sass";
 import Tracks, { ITrack } from "../../ui/Tracks";
-import { getFile } from "../../common/fs";
 import { usePaperStyles } from "../../common/materialStyles";
 import { AlphaTabApi } from "../../alphatab-1.1.0/package/dist/alphaTab";
 
@@ -49,8 +50,8 @@ const Score = ({ mainRef, scrollRef, alphaTabApi }: ScoreProps) => {
   useEffect(() => {
     alphaTabApi?.tex("");
     if (!tabs[activeTabIndex]) return;
-    const { filePath, fileExt } = tabs[activeTabIndex];
-    switch (fileExt) {
+    const { filePath } = tabs[activeTabIndex];
+    switch (path.extname(filePath)) {
       case ".js":
         (async () => {
           const data = await compileJS(filePath);
@@ -58,7 +59,7 @@ const Score = ({ mainRef, scrollRef, alphaTabApi }: ScoreProps) => {
         })();
         break;
       case ".tex": {
-        const { fileText } = getFile(filePath);
+        const fileText = fs.readFileSync(filePath, "utf-8");
         alphaTabApi?.tex(fileText);
         break;
       }
