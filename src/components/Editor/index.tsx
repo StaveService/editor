@@ -1,6 +1,6 @@
+import fs from "fs";
 import React, { useRef, useEffect, useContext, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import fs from "fs";
 import { ipcRenderer } from "electron";
 import MonacoEditor, { monaco } from "react-monaco-editor";
 import Box from "@material-ui/core/Box";
@@ -19,11 +19,11 @@ import ipc from "../../constants/ipc.json";
 
 const Editor = () => {
   const editorRef = useRef<MonacoEditor>(null);
+  const { monacoModels, setMonacoModels } = useContext(MonacoModelsContext);
   const dispatch = useDispatch();
   const tabs = useSelector(selectTabs);
   const activeTabIndex = useSelector(selectActiveTabIndex);
   const theme = useSelector(selectTheme);
-  const { monacoModels, setMonacoModels } = useContext(MonacoModelsContext);
   const handleChange = () => dispatch(change());
   const saveTab = useCallback(() => {
     const { filePath } = tabs[activeTabIndex];

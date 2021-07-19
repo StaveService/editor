@@ -6,7 +6,12 @@ import {
   MenuItemConstructorOptions,
 } from "electron";
 import path from "path";
-import { openFolder, openFile, saveTexFile } from "./common/dialog";
+import {
+  openFolder,
+  openFile,
+  saveTexFile,
+  openFolderRemote,
+} from "./common/dialog";
 import ipc from "./constants/ipc.json";
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -209,11 +214,7 @@ export default class MenuBuilder {
           click: async () => {
             const filePath = await openFolder();
             if (!filePath) return;
-            this.mainWindow.webContents.send(ipc.openFolder, {
-              filePath,
-              fileType: "folder",
-              fileName: path.basename(filePath),
-            });
+            this.mainWindow.webContents.send(ipc.openFolder, filePath);
           },
         },
         {
@@ -275,11 +276,7 @@ export default class MenuBuilder {
             click: async () => {
               const filePath = await openFolder();
               if (!filePath) return;
-              this.mainWindow.webContents.send(ipc.openFolder, {
-                filePath,
-                fileType: "folder",
-                fileName: path.basename(filePath),
-              });
+              this.mainWindow.webContents.send(ipc.openFolder, filePath);
             },
           },
           {

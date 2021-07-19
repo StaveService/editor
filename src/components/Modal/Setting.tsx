@@ -1,7 +1,5 @@
 import { ipcRenderer } from "electron";
 import React, { useEffect } from "react";
-import Modal from "@material-ui/core/Modal";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
@@ -13,6 +11,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import { useDispatch } from "react-redux";
+import { Dialog, DialogTitle } from "@material-ui/core";
 import { change } from "../../slices/theme";
 import ipc from "../../constants/ipc.json";
 import { useModalStyle } from "../../common/materialStyles";
@@ -30,7 +29,7 @@ const Setting = () => {
     };
   }, [handleOpen]);
   return (
-    <Modal
+    <Dialog
       open={open}
       onClose={handleClose}
       closeAfterTransition
@@ -42,9 +41,7 @@ const Setting = () => {
     >
       <Fade in={open}>
         <Paper>
-          <Box pl={2}>
-            <Typography variant="h6">Setting</Typography>
-          </Box>
+          <DialogTitle>Setting</DialogTitle>
           <List>
             <Box width={500}>
               <Divider />
@@ -59,7 +56,7 @@ const Setting = () => {
           </List>
         </Paper>
       </Fade>
-    </Modal>
+    </Dialog>
   );
 };
 export default Setting;

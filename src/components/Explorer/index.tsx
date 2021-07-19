@@ -18,8 +18,8 @@ const Explorer = () => {
   };
 
   useEffect(() => {
-    ipcRenderer.on(ipc.openFolder, (_event, dir) => {
-      setRootFolder(dir);
+    ipcRenderer.on(ipc.openFolder, (_event, filePath) => {
+      setRootFolder(filePath);
     });
     return () => {
       ipcRenderer.removeAllListeners(ipc.openFolder);
