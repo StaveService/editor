@@ -5,13 +5,7 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from "electron";
-import path from "path";
-import {
-  openFolder,
-  openFile,
-  saveTexFile,
-  openFolderRemote,
-} from "./common/dialog";
+import { openFolder, openFile, saveTexFile } from "./common/dialog";
 import ipc from "./constants/ipc.json";
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
