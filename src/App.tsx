@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Color, Titlebar } from "custom-electron-titlebar";
+import { SnackbarProvider } from "notistack";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
@@ -18,12 +19,14 @@ export default function App() {
     };
   }, []);
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
+    <SnackbarProvider maxSnack={3}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
+    </SnackbarProvider>
   );
 }

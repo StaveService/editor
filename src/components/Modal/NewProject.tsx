@@ -2,7 +2,7 @@ import { remote, ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
 import simpleGit from "simple-git";
-import React, { Dispatch, SetStateAction, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -35,11 +35,9 @@ import { addTemplate } from "../../common/templates";
 import { INewProjectFormValues } from "../../interfaces";
 import { projectSchema } from "../../schema";
 import useOpen from "../../hooks/useOpen/useOpen";
+import { set } from "../../slices/workDir";
 
-interface INewProjectModal {
-  setRootFolder: Dispatch<SetStateAction<string>>;
-}
-const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
+const NewProjectModal = () => {
   const [open, handleOpen, handleClose] = useOpen();
   const { setMonacoModels } = useContext(MonacoModelsContext);
   const dispatch = useDispatch();
@@ -58,7 +56,7 @@ const NewProjectModal = ({ setRootFolder }: INewProjectModal) => {
       prevMonacoModels.forEach((model) => model.dispose());
       return [];
     });
-    setRootFolder(projectDir);
+    dispatch(set(projectDir));
     handleClose();
   };
 

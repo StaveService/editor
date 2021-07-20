@@ -13,6 +13,7 @@ import Score from "./Score";
 import Header from "./Header";
 import Footer from "./Footer";
 import SettingModal from "./Modal/Setting";
+import NewProjectModal from "./Modal/NewProject";
 import MonacoModelsContext from "../contexts/MonacoModels";
 import { selectTheme } from "../slices/theme";
 import { IAlphaTab } from "../interfaces";
@@ -49,6 +50,7 @@ const Main: React.FC = () => {
     <ThemeProvider theme={materialTheme}>
       <MonacoModelsContext.Provider value={{ monacoModels, setMonacoModels }}>
         <SettingModal />
+        <NewProjectModal />
         <Box height="100%">
           <CssBaseline />
           <Header alphaTabApi={alphaTabApi} />
