@@ -3,7 +3,7 @@
 import React, { useState, useRef, MouseEvent } from "react";
 import { IoIosClose, IoIosCloseCircle } from "react-icons/io";
 import { GoSync } from "react-icons/go";
-import styles from "./CloseBtn.sass";
+import styles from "./CloseBtn.module.scss";
 
 interface CloseBtnProps {
   onClick: (e: MouseEvent<HTMLDivElement>) => void;

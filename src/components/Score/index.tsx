@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import Box from "@material-ui/core/Box";
 import useComponentSize from "@rehooks/component-size";
 import { selectTabs, selectActiveTabIndex } from "../../slices/tab";
-import styles from "./index.sass";
+import styles from "./index.module.scss";
 import Tracks, { ITrack } from "../../ui/Tracks";
 import { usePaperStyles } from "../../common/materialStyles";
 import { AlphaTabApi } from "../../alphatab-1.1.0/package/dist/alphaTab";

@@ -3,7 +3,7 @@ import { Color, Titlebar } from "custom-electron-titlebar";
 import { SnackbarProvider } from "notistack";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
 import { persistor, store } from "./store";
 import "./App.global.css";
@@ -22,9 +22,9 @@ export default function App() {
     <SnackbarProvider maxSnack={3}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
+          <Router>
             <Routes />
-          </BrowserRouter>
+          </Router>
         </PersistGate>
       </Provider>
     </SnackbarProvider>
