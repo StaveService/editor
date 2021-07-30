@@ -40,8 +40,11 @@ const Setting = () => {
   useEffect(() => {
     const git = simpleGit(workDir);
     setSimpleGitIns(git);
-    git.getRemotes(true, (_err, getedRemotes) => setRemotes(getedRemotes));
+    git.getRemotes(true, (_err, getedRemotes) =>
+      setRemotes(getedRemotes || [])
+    );
   }, [workDir]);
+  console.log(remotes);
   useEffect(() => {
     ipcRenderer.on(ipc.openSettingModal, handleOpen);
     return () => {

@@ -26,7 +26,10 @@ const Main: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [loading] = useScript({
-    src: "./alphatab-1.1.0/package/dist/alphaTab.js",
+    src:
+      process.env.NODE_ENV === "development"
+        ? "./alphatab-1.1.0/package/dist/alphaTab.js"
+        : "../src/alphatab-1.1.0/package/dist/alphaTab.js",
   });
   const theme = useSelector(selectTheme);
   const materialTheme = createMuiTheme({
@@ -40,7 +43,10 @@ const Main: React.FC = () => {
         new window.alphaTab.AlphaTabApi(mainRef.current, {
           tex: true,
           player: {
-            soundFont: "alphatab-1.1.0/package/dist/soundfont/sonivox.sf2",
+            soundFont:
+              process.env.NODE_ENV === "development"
+                ? "alphatab-1.1.0/package/dist/soundfont/sonivox.sf2"
+                : "../src/alphatab-1.1.0/package/dist/soundfont/sonivox.sf2",
             enablePlayer: true,
           },
         })
