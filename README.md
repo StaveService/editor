@@ -1,5 +1,9 @@
 # STAVE EDITOR
 
+## STAVE DOCS
+
+- [docs](https://github.com/StaveService/docs)
+
 ## Packages
 
 - [alphaTab](https://github.com/CoderLine/alphaTab)
